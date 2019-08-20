@@ -28,7 +28,7 @@ def set_display(tempF):
   sense.set_pixel(0,7, 255,255,255)
 
 with open('config.yml', 'r') as file:
-  config = yaml.load(file)
+  config = yaml.load(file, Loader=yaml.FullLoader)
 
 api_url = "%s?lat=%s&lon=%s" % (config['url'], config['lat'], config['lon'])
 req_temp(api_url)
