@@ -1,3 +1,4 @@
 lat: 40.76
 lon: -73.98
 url: 'https://fcc-weather-api.glitch.me/api/current'
+secInterval: 5.0

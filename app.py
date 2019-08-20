@@ -2,9 +2,11 @@ from sense_hat import SenseHat
 from helpers import led_images as images
 import urllib.request, json, threading, yaml
 
-def req_temp(url):
-  threading.Timer(5.0, req_temp, [url]).start()
+def run(interval, url):
+  threading.Timer(interval, run, [interval, url]).start()
+  req_temp(url)
 
+def req_temp(url):
   resp = urllib.request.urlopen(url)
   data = resp.read()
   encoding = resp.info().get_content_charset('utf-8')
@@ -33,4 +35,4 @@ with open('config.yml', 'r') as file:
   config = yaml.load(file, Loader=yaml.FullLoader)
 
 api_url = "%s?lat=%s&lon=%s" % (config['url'], config['lat'], config['lon'])
-req_temp(api_url)
+run(config['secInterval'], api_url)
