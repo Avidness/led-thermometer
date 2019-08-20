@@ -14,7 +14,7 @@ def req_temp(url):
   set_display(str(int(round(tempF + .5))))
 
 def set_display(tempF):
-  print tempF
+  print(tempF)
   sense = SenseHat()
   sense.set_rotation(180)
   sense.show_message(tempF)
@@ -30,10 +30,5 @@ def set_display(tempF):
 with open('config.yml', 'r') as file:
   config = yaml.load(file)
 
-print config
-print config['lat']
-print config.url
-lat = 40.76
-lon = -73.98
-api_url = 'https://fcc-weather-api.glitch.me/api/current?lat=%s&lon=%s' % (lat, lon)
+api_url = "%s?lat=%s&lon=%s" % (config['url'], config['lat'], config['lon'])
 req_temp(api_url)
