@@ -1,14 +1,16 @@
 from sense_hat import SenseHat
 from helpers import led_images as images
-import urllib, json, threading, yaml
+import urllib.request, json, threading, yaml
 
 def req_temp(url):
   threading.Timer(5.0, req_temp, [url]).start()
 
-  resp = urllib.urlopen(url)
-  data = json.loads(resp.read())
+  resp = urllib.request.urlopen(url)
+  data = resp.read()
+  encoding = resp.info().get_content_charset('utf-8')
+  jdata = json.loads(data.decode(encoding))
   
-  tempC = data['main']['temp']
+  tempC = jdata['main']['temp']
   tempF = (tempC * 9/5) + 32
 
   set_display(str(int(round(tempF + .5))))
