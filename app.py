@@ -2,12 +2,6 @@ from sense_hat import SenseHat
 from helpers import weather_images as images, colors
 import urllib.request, json, threading, yaml
 
-class PixelColor: 
-  def __init__(self, r, g, b):
-    self.r = r
-    self.g = g
-    self.b = b
-
 def run(interval, url):
   threading.Timer(interval, run, [interval, url]).start()
   tempF = get_temp(url)
@@ -29,17 +23,11 @@ def set_display(tempF):
   sense.set_rotation(180)
 
   color = get_color(tempF)
-
-  top = 7
-  bot = 0
-  test = images.test_image(colors.g)
-  sense.set_pixels(test)
-  sense.set_pixel(top, bot, color.r, color.b, color.g)
+  image = images.test_image(color)
+  sense.set_pixels(image)
 
 def get_color(tempF):
-  #red = 255,0,0
-  #blue = 0,0,255
-  return PixelColor(0,0,255)
+  return colors.violet
 
 with open('config.yml', 'r') as file:
   config = yaml.load(file, Loader=yaml.FullLoader)
