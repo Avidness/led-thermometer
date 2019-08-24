@@ -27,7 +27,23 @@ def set_display(tempF):
   sense.set_pixels(image)
 
 def get_color(tempF):
-  return colors.violet
+  tempF = float(tempF)
+  if tempF > 80:
+    return colors.red
+  elif tempF > 75:
+    return colors.orange
+  elif tempF > 70:
+    return colors.yellow
+  elif tempF > 65: 
+    return colors.green
+  elif tempF > 60:
+    return colors.violet
+  elif tempF > 45:
+    return colors.indigo
+  elif tempF > 40:
+    return colors.blue
+  else:
+    return colors.white
 
 with open('config.yml', 'r') as file:
   config = yaml.load(file, Loader=yaml.FullLoader)
