@@ -1,6 +1,6 @@
 from sense_hat import SenseHat
 from helpers import weather_images as images, colors
-import urllib.request, json, threading, yaml
+import os, urllib.request, json, threading, yaml
 
 def run(interval, url):
   threading.Timer(interval, run, [interval, url]).start()
@@ -45,7 +45,9 @@ def get_color(tempF):
   else:
     return colors.white
 
-with open('config.yml', 'r') as file:
+dirname = os.path.dirname(__file__)
+configfile = os.path.join(dirname, 'config.yml')
+with open(configfile, 'r') as file:
   config = yaml.load(file, Loader=yaml.FullLoader)
 
 api_url = "%s?lat=%s&lon=%s" % (config['url'], config['lat'], config['lon'])
